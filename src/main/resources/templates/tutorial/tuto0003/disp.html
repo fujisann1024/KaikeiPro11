@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link th:href="@{/webjars/bootstrap/4.6.2/css/bootstrap.min.css}"
+	rel="stylesheet">
+</head>
+<body class="container">
+	<h1 class="display-4 mb-4">Hello Page</h1>
+	<!-- th:if~値が真 -->
+	<div class="alert alert-primary" th:if="${flag}">
+		<h5>Alert</h5>
+		<p th:text="${msg}"></p>
+	</div>
+
+	<!-- th:unless~値が偽 -->
+	<div class="card" th:unless="${flag}">
+		<div class="card-body">
+			<h5 class="card-title">Massage</h5>
+			<p class="card-text" th:text="${msg}"></p>
+		</div>
+	</div>
+	
+	<ul class="list-group" th:each="item:${data}">
+		<li class="list-group-item" th:text="${item}"></li>
+	</ul>
+
+</body>
+</html>
