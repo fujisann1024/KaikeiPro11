@@ -13,14 +13,14 @@ public class HelloController {
 	private static String path = "tutorial/tuto0001/";
 	
 	// 引数に指定されたパスにアクセスされたとき、付与されたメソッドを呼び出す
-	@RequestMapping("/hello")
+	@RequestMapping("/tutorial/tuto0001/hello")
 	public String disp() {
 		// 指定したテンプレートを表示する
 		return path + "hello";
 	}
 
 	// URLから受け取ったパラメータによって表示を変える
-	@RequestMapping("/hello/{temp}")
+	@RequestMapping("/tutorial/tuto0001/{temp}")
 	public String dispcheck(@PathVariable String temp) {
 
 		if ("other".equals(temp)) {
@@ -31,7 +31,7 @@ public class HelloController {
 	}
 	
 	//画面に値を渡す処理
-	@RequestMapping("/model/{num}")
+	@RequestMapping("/tutorial/tuto0001/{num}")
 	public ModelAndView getMessage(ModelAndView mav, @PathVariable int num) {
 		
 		int value = 0;
