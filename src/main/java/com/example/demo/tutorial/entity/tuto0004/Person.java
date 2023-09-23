@@ -12,9 +12,9 @@ import javax.persistence.Table;
 public class Person {
 	
 	@Id //プライマリーキーを示す
-	@GeneratedValue(strategy=GenerationType.AUTO) //値を自動生成する
-	@Column
-	private long id; //ID
+	//@GeneratedValue(strategy=GenerationType.AUTO) //値を自動生成する
+	@Column(length = 10, nullable = true)
+	private String id; //ID
 	
 	@Column(length = 50, nullable = true)
 	private String name; //名前
@@ -28,11 +28,11 @@ public class Person {
 	@Column(nullable = true)
 	private String memo; //メモ
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
