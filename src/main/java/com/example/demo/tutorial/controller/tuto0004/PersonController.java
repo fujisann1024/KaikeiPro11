@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.tutorial.entity.tuto0004.Person;
@@ -76,6 +77,31 @@ public class PersonController {
 			@ModelAttribute("formModel") Person person
 			,ModelAndView mav) {
 		repository.saveAndFlush(person);
+		return new ModelAndView("redirect:/tutorial/tuto0004/index");
+	}
+	
+	//削除画面表示用
+	@RequestMapping(value="tutorial/tuto0004/delete/{id}",method=RequestMethod.GET)
+	public ModelAndView delete(
+			 @PathVariable String id
+		  , ModelAndView mav
+		  ) {
+		
+		mav.addObject("title","Delete Person.");
+		mav.addObject("msg","Can I delete this record?");
+		Optional<Person> data = repository.findById(id);
+		mav.addObject("formModel", data.get());
+		mav.setViewName(path + "delete");
+		return mav;
+	}
+	
+	//削除用
+	@RequestMapping(value="tutorial/tuto0004/delete",method=RequestMethod.POST)
+	@Transactional //データベースの更新などの一貫性を保証する
+	public ModelAndView remove(
+			@RequestParam String id
+			,ModelAndView mav) {
+		repository.deleteById(id);
 		return new ModelAndView("redirect:/tutorial/tuto0004/index");
 	}
 }
