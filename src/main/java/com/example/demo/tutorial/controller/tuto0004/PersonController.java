@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,10 +51,28 @@ public class PersonController {
 	@RequestMapping(value="tutorial/tuto0004/index",method=RequestMethod.POST)
 	@Transactional //データベースの更新などの一貫性を保証する
 	public ModelAndView form(
-			@ModelAttribute("formModel") Person person //画面から受け取った値をセットしたインスタンスを自動的に生成
+			@ModelAttribute("formModel") //画面から受け取った値をセットしたインスタンスを自動的に生成 
+			@Validated Person person //エンティティの値をバリデーションチェックするため
+			,BindingResult result //Errorsというインターフェースを継承するサブインターフェース
 			,ModelAndView mav) {
-		repository.saveAndFlush(person);
-		return new ModelAndView("redirect:index");
+		ModelAndView res = null;
+		System.out.println(result.getFieldErrors());
+		
+		if(!result.hasErrors()) {
+			repository.saveAndFlush(person);
+			res = new ModelAndView("redirect:index");			
+		}else {
+			mav.addObject("title","Hello page");
+			mav.addObject("msg","this is JPA sample data.");
+			
+			Iterable<Person> list = repository.findAll();
+			mav.addObject("data",list);
+			mav.setViewName(path + "index");	
+			res = mav;
+		}
+		
+		return res;
+
 	}
 	
 	//編集画面表示用
