@@ -12,6 +12,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.example.demo.tutorial.validator.Phone;
+
 
 @Entity //エンティティクラスを示すアノテーション
 @Table(name="people") //エンティティクラスに割り当てられるテーブル
@@ -37,6 +39,7 @@ public class Person {
 	private  Integer age; //年齢
 	
 	@Column(nullable = true)
+	@Phone(onlyNumber=true)
 	private String memo; //メモ
 
 	public String getId() {
