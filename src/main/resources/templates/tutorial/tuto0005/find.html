@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+<link th:href="@{/webjars/bootstrap/4.6.2/css/bootstrap.min.css}"
+	rel="stylesheet">
+</head>
+<body class="container">
+
+	<h1 class="display-4 mb-4" th:text="${title}"></h1>
+	<p th:text="${msg}"></p>
+	<form method="post" action="find">
+	
+		<div class="input-group">
+			<input type="text" class="form-control me-1" name="find_str" th:value="${value}"/>
+			<span class="input-group-btn">
+				<input type="submit" class="btn btn-primary px-4" value="Click"/>
+			</span>
+		</div>
+	</form>
+	
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>名前</th>
+				<th>誕生日</th>
+				<th>身長(cm)</th>
+				<th>体重(kg)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item : ${data}">
+				<th th:text="${item.id}"></th>
+				<th th:text="${item.name}"></th>
+				<th th:text="${item.birthday}"></th>
+				<th th:text="${item.height}"></th>
+				<th th:text="${item.weight}"></th>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
