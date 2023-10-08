@@ -7,5 +7,11 @@ import java.util.List;
 public interface UserDAO <T> extends Serializable {
 	
 	public List<T> getAll();
+	
+	public T findById(String id);
+	
+	public List<T> findByName(String name);
+	
+	public List<T> find(String fstr);
 
 }

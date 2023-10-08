@@ -17,7 +17,7 @@ public class UserDAOUserImpl implements UserDAO<User>  {
 	
 	//エンティティを操作するための機能がそろっている
 	@PersistenceContext //EntityManagerのBeanを取得してフィールドに設定するためのもの
-	private EntityManager entityManger;
+	private EntityManager entityManager;
 	
 	public UserDAOUserImpl() {
 		super();
@@ -27,14 +27,41 @@ public class UserDAOUserImpl implements UserDAO<User>  {
 	public List<User> getAll() {
 		
 		//引数にJPQLによるクエリ文を指定し、実行するためのQueryインスタンスが生成される
-		Query query = entityManger.createQuery("from User");
+		Query query = entityManager.createQuery("from User");
 		
 		@SuppressWarnings("unchecked")
 		List<User> list = query.getResultList();
 		
-		entityManger.close();
+		entityManager.close();
 		
 		return list;
 	}
 
+	@Override
+	public User findById(String id) {
+		return (User)entityManager
+				.createQuery("from User where id = '" + id +"'")
+				.getSingleResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> findByName(String name) {
+		return (List<User>)entityManager
+				.createQuery("from Person where name = '" + name + "'")
+				.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> find(String fstr) {
+		List<User> list = null;
+		String qstr = "from User where id = :fstr";
+		Query query = entityManager
+				.createQuery(qstr)
+				.setParameter("fstr", fstr);
+		list = query.getResultList();
+		return list;
+	}
+	
 }
