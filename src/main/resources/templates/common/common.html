@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="flg_head(title,links)">
+<meta charset="UTF-8">
+<title th:replace=${title}>Insert title here</title>
+<link th:href="@{/common/css/reset.css}" rel="stylesheet">
+<link th:href="@{/common/css/common.css}" rel="stylesheet">
+<script th:src="@{/common/js/common.js}"></script>
+<!-- ?: _ をつけないとエラー -->
+<th:block th:replace="${links} ?: _" />
+</head>
+<body>
+	<!-- 外側にあたる要素 -->
+	<header class="header" th:fragment="flg_header">
+		<!-- 内側にあたる要素 -->
+		<div class="header__inner">
+			<div>ヘッダー</div>
+		</div>
+		<!-- /.header__inner -->
+	</header>
+
+	<footer th:fragment="flg_footer">
+		<!-- 外側にあたる要素 -->
+		<div class="footer">
+			<!-- 内側にあたる要素 -->
+			<div class="footer__inner">
+			
+			</div>
+			<!-- /.footer__inner -->
+		</div>
+		<!-- /.footer -->
+		
+		<!-- 外側にあたる要素（ボーダーあり）-->
+		<div class="footer footer--border-top-gray">
+			<!-- 内側にあたる要素 -->
+			<div class="footer__inner">
+				<small class="footer-copyright">@2023</small>
+			</div>
+			<!-- /.footer__inner -->
+		</div>
+		<!-- /.footer -->
+	</footer>
+</body>
+</html>
